@@ -1,5 +1,5 @@
 <template>
-    <h1>First Component in our vuejs website portfolio</h1>
+    <router-view/>
 </template>
 
 <script>
