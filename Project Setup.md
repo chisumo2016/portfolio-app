@@ -28,5 +28,7 @@
                      <div id="app"></div>
                     @vite('resources/js/app.js')
 
-     E: RUN NPMM
+     E: RUN NPM
         npm run dev
+     
+     
