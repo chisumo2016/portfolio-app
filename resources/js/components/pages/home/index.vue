@@ -3,4 +3,8 @@
     <div>
         <router-link to="/admin/home">Admin Dashboard</router-link>
     </div>
+    <div>
+        <router-link to="/login">login</router-link>
+    </div>
 </template>
+
