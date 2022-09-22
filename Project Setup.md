@@ -19,4 +19,14 @@
      C: CREATE A COMPONENTS DIRECTORY IN THE JS FOLDER
             resources/js/components
             create a file resources/js/component/app.vue
-            In the app.js you cann instantiatee the object
+            In the app.js you can instantiatee the object {createApp} and import
+            Test the app
+     D: LINK THE VITE IN WELCOME PAGE
+            In the head section
+                @vite('resources/css/app.css')
+            In the body section
+                     <div id="app"></div>
+                    @vite('resources/js/app.js')
+
+     E: RUN NPMM
+        npm run dev
