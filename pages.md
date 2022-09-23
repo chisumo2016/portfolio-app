@@ -52,5 +52,20 @@
             bugs in axios
         Logout functionality using composition api
             resources/js/components/admin/home/index.vue
-            
+             Add Auth Guard
+                    path: '/login',
+                    name:'Login',
+                    component: login,
+                    meta:{
+                        requiresAuth :false
+                    }
+
+            router.beforeEach((to,from) =>{
+            if (to.meta.requiresAuth && !localStorage.getItem('token')){
+            return { name: 'Login'}
+            }
+            if (to.meta.requiresAuth == false && localStorage.getItem('token')){
+            return { name: 'adminHome'}
+            }
+            })
   
