@@ -384,18 +384,11 @@
     <footer class="footer">
 
     </footer>
-
-<!--    <h1>Welcome to admin overview dashboard</h1>-->
-<!--    <div>-->
-<!--        <router-link to="/">Home Page</router-link>-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <button @click="logout">Log Out</button>-->
 </template>
 
 <script setup>
 import { useRouter} from "vue-router";
-import Base from '../layouts/base.vue'
+import Base from '../layouts/base.vue';
 
 const  router = useRouter();
 

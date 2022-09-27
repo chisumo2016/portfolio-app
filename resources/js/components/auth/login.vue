@@ -3,11 +3,19 @@
        <div class="formLogin">
            <p class="text-danger" v-if="error">{{ error}}</p>
            <form @submit.prevent="login" >
-               <input v-model="form.email" type="email" placeholder="Enter your Email" />
+               <input
+                   v-model="form.email"
+                   class="input_auth"
+                   type="email"
+                   placeholder="Enter your Email" />
                <br>
-               <input v-model="form.password" type="password" placeholder="Enter Your Password">
+               <input
+                   v-model="form.password"
+                   class="input_auth"
+                   type="password"
+                   placeholder="Enter Your Password">
                <br>
-               <input type="submit" value="Login" class="submit">
+               <input type="submit" value="Login" class="input_auth submit">
            </form>
        </div>
    </div>
@@ -70,22 +78,22 @@ const login = async() =>{
     margin: 0 auto 0 auto;
     overflow: hidden;
 }
-input{
+.input_auth{
     background: rgba(228, 232, 243, 0.8) 0.5em 0.6em;
     border: none;
     color: rgba(80 , 80 , 80 , 1);
     padding: 0 0 0 4rem;
     margin: 0 0 1em 0;
     width: 20em;
-    height:     2.8em;
+    height: 2.8em;
     outline: none;
     transition: background-color 0.4s;
 }
 
-input:hover{
+.input_auth:hover{
     background-color:  rgba(255, 255, 255, 255) ;
 }
-input:focus{
+.input_auth:focus{
     background-color:  rgba(255, 255, 255, 255) ;
 }
 
