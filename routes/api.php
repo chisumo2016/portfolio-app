@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,12 @@ Route::controller(AboutController::class)->group(function(){
 
     Route::get('edit_about', 'edit_about');
     Route::post('update_about/{id}', 'update_about');
+});
+
+Route::controller(ServiceController::class)->group(function(){
+
+    Route::get('display_all_service', 'index');
+    Route::post('create_service', 'create');
+
 });
 
