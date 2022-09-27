@@ -28,8 +28,26 @@ class ServiceController extends Controller
           $service->icon = $request->icon;
           $service->description = $request->description;
           $service->save();
+    }
 
+    public  function  update(Request  $request, $id)
+    {
+        $service = Service::find($id);
 
+        $this->validate($request,[
+            'name' => 'required'
+        ]);
 
+        $service->name = $request->name;
+        $service->icon = $request->icon;
+        $service->description = $request->description;
+        $service->save();
+
+    }
+
+    public function   delete(Request $request, $id)
+    {
+        $service = Service::findOrFail($id);
+        $service->delete();
     }
 }

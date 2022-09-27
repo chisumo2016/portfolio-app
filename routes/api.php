@@ -37,6 +37,8 @@ Route::controller(ServiceController::class)->group(function(){
 
     Route::get('display_all_service', 'index');
     Route::post('create_service', 'create');
+    Route::post('update_service/{id}', 'update');
+    Route::get('/delete_service/{id}', 'delete');
 
 });
 
