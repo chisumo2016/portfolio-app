@@ -164,6 +164,9 @@
 
     add the route api to delete the record
             Route::get('delete_skill/{id}','delete');
+    Implement the functionality to delete the record in skillcontroller
+    Test the application.
+
         
 
 
