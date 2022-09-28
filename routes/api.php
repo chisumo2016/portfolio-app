@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EducationController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\SkillController;
 use Illuminate\Http\Request;
@@ -49,3 +50,9 @@ Route::controller(SkillController::class)->group(function (){
     Route::post('update_skill/{id}','update');
     Route::get('delete_skill/{id}','delete');
 });
+
+Route::controller(EducationController::class)->group(function (){
+    Route::get('display_all_education','index');
+
+});
+
