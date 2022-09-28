@@ -46,4 +46,6 @@ Route::controller(ServiceController::class)->group(function(){
 Route::controller(SkillController::class)->group(function (){
     Route::get('display_all_skill','index');
     Route::post('create_skill','create');
+    Route::post('update_skill/{id}','update');
+    Route::get('delete_skill/{id}','delete');
 });

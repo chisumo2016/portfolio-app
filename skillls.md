@@ -111,9 +111,83 @@
     Write the function create inside the Skillcontroller
 
 
+       =================  UPDATE AND DELETE SKILLS =============
+
+    Create the propertiy ref to editModal
+            let editMode   = ref(false)
+    Add form.value in closeModal and editModal.value
+            const closeModal = () =>{
+                showModal.value = !hideModal.value
+                form.value = ({})
+                editMode.value = false
+            }
+    create a const  editModal
+        const  editModal = (skill) =>{
+            editMode.value = true
+            showModal.value = !showModal.value
+            form.value = skill
+        }
+
+    add the event click on the button 
+        <button class="btn-icon success" @click="editModal(skill)"></button>
+    Test iif it work o clicking edit icoon
+    Add two button in service modal
+            <h3 class="modal__title" v-show="editMode == false">Add Skill</h3>
+            <h3 class="modal__title" v-show="editMode == true">Update Skill</h3>
+
+                        AND
+            <button class="btn btn-secondary btn__close--modal " v-show="editMode == false">Save</button>
+            <button class="btn btn-secondary btn__close--modal " v-show="editMode == true">Update</button>
+
+    Add the method inside the form tag to update the record
+         <form @submit.prevent="editMode ? UpdateSkill(): createSkill()"></form>
+    Write the function to updatee the record in scriipt  UpdateSkill()
+             const  UpdateSkill = async ()=>{
+            await  axios.post('/api/update_skill'+form.value.id, form.value)
+            .then(() =>{
+                getSkills()
+                closeModal()
+                toast.fire({
+                    icon: 'success',
+                    title: 'Skill updated successfully'
+                })
+            })
+        }
+    Add the url api to update the skills in api file
+            Route::post('update_skill','update');
+    Add the fuctionality to update the record in the controller  under update() method
+    Add the fuctionality to update the record in the const  UpdateSkill = async ()=>{}
+
+    add the click evennt on the button to delete the skills
+             <button class="btn-icon danger" @click="deleteSkill(skill.id)"></button>
+    Implement the functionality to delete the record in script of api compoistiion
+
+    add the route api to delete the record
+            Route::get('delete_skill/{id}','delete');
+        
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
