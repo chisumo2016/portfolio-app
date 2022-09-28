@@ -21,6 +21,6 @@ class Skill extends Model
             related: Service::class,
             foreignKey: 'service_id',
         );
-        //return $this->belongsTo(Service::class);
+       // return $this->belongsTo(Service::class);
     }
 }

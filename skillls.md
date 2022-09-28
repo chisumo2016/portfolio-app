@@ -57,6 +57,78 @@
     Called the service relationship into the index()
     Use the relation to access the service
                  <p >{{ skill.service_id }}</p>
+                 <p v-if="skill.service" >{{ skill.service.name}}</p>
+
+
+    ==========================CREATE A NEW SKILLS ===========
+     - Create a const showModal  in script
+            let showModal = ref(false)
+            let hideModal = ref(true)
+     - Create a function to openModal
+             showModal.value = !showModal.value
+     - Create a function to closeModal
+             showModal.value = !hideModal.value
+     - Bind the modal class on main modal to show the model
+           <div class="modal main__modal " :class="{ show : showModal}">
+
+     -Add the click event to openModel in skills
+           <div class="btn" @click="openModal()"> New Skill</div>
+     -Add the click event to closeModel in skills
+            <span class="modal__close btn__close--modal" @click="closeModal()">×</span>
+   
+
+     Deeclare the  form properties and v-model bindig on the form
+            let form = ref({
+                'name' : '',
+                'proficiency': '',
+                'service_id': '',
+            })
+            v-model="form.proficiency"
+     First we need to retrieve the data from the service ,write the function to call getServices
+            const  getServices =  async () =>{
+            let response = await  axios.get('/api/display_all_service')
+        }
+     Call the getServices() onn OnMounted()
+     To declare the property services
+        let services = ref([]);
+     Implement in the getServices method
+                const  getServices =  async () =>{
+                let response = await  axios.get('/api/display_all_service')
+                services.value = response.data.services
+            }
+     To display the sservices onn the UI  inorder to select
+
+    NB:update the bags in the service -index.vue
+            <form  @submit.prevent="editMode.value ? ServiceUpdate(): ServiceCreate() ">
+
+    Add the form tag and  add the function to create skill
+            <form @submit.prevent="createSkill()">
+    Write the funnctioo to create skill record 
+
+    Add thee url on api route create_skill
+        Route::post('create_skill','create');
+
+    Write the function create inside the Skillcontroller
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
      
    

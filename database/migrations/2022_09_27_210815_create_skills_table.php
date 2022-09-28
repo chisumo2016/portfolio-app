@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->integer('proficiency')->nullable();
-            $table->integer('service_id')->nullable(); //Relationship?
-            //$table->foreignId('service_id')->nullable()->index()->constrained()->nullOnDelete();
+            //$table->integer('service_id')->nullable(); //Relationship?
+            $table->foreignId('service_id')->nullable()->index()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

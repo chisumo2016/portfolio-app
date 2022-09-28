@@ -14,7 +14,7 @@
                             <h1>Skills </h1>
                         </div>
                         <div class="titlebar_item">
-                            <div class="btn btn__open--modal">
+                            <div class="btn" @click="openModal()">
                                 New Skill
                             </div>
                         </div>
@@ -63,6 +63,7 @@
                                 <strong>{{ skill.proficiency }}%</strong>
                             </div>
                             <p v-if="skill.service">{{ skill.service.name }}</p>
+<!--                            <p>{{ skill.service_id }}</p>-->
                             <div>
                                 <button class="btn-icon success">
                                     <i class="fas fa-pencil-alt"></i>
@@ -77,31 +78,35 @@
 
                 </div>
                 <!-------------- SERVICES MODAL --------------->
-                <div class="modal main__modal " >
+                <div class="modal main__modal " :class="{ show : showModal}">
                     <div class="modal__content">
-                        <span class="modal__close btn__close--modal" >×</span>
+                        <span class="modal__close btn__close--modal" @click="closeModal()">×</span>
                         <h3 class="modal__title">Add Skill</h3>
                         <hr class="modal_line"><br>
-                        <div>
-                            <p>Name</p>
-                            <input type="text" class="input" />
+                        <form @submit.prevent="createSkill()">
+                            <div>
+                                <p>Name</p>
+                                <input v-model="form.name" type="text" class="input" />
 
-                            <p>Proficiency</p>
-                            <input type="text" class="input" />
+                                <p>Proficiency</p>
+                                <input  v-model="form.proficiency" type="text" class="input" />
 
-                            <p>Service</p>
-                            <select class="inputSelect" name="" id="">
-                                <option value="">Front-end developer</option>
-                                <option value="">Backend developer</option>
-                            </select>
-                        </div>
-                        <br><hr class="modal_line">
-                        <div class="model__footer">
-                            <button class="btn mr-2 btn__close--modal" @click="closeModal()">
-                                Cancel
-                            </button>
-                            <button class="btn btn-secondary btn__close--modal ">Save</button>
-                        </div>
+                                <p>Service</p>
+                                <select class="inputSelect" name="" id="" v-model="form.service_id">
+                                    <option disabled>Select Service</option>
+                                    <option :value="service.id" v-for="service in services" :key="service.id">
+                                        {{ service.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <br><hr class="modal_line">
+                            <div class="model__footer">
+                                <button class="btn mr-2 btn__close--modal" @click="closeModal()">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-secondary btn__close--modal ">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -112,19 +117,59 @@
 <script setup>
 import  Base from "../layouts/Base.vue";
 import { onMounted, ref} from "vue";
+import axios from "axios";
 
-let skills = ref([]);
+let skills    = ref([]);
+let services = ref([]);
+
+
+let showModal = ref(false)
+let hideModal = ref(true)
+
+let form = ref({
+    'name' : '',
+    'proficiency': '',
+    'service_id': '',
+})
 
 onMounted(async () =>{
     getSkills()
+    getServices()
 })
 
 const  getSkills = async () => {
-    let response = await  axios('/api/display_all_skill')
+    let response = await  axios.get('/api/display_all_skill')
     skills.value  = response.data.skills
     //console.log('response' ,response)
 }
 
+const  getServices =  async () => {
+    let response = await  axios.get('/api/display_all_service')
+    services.value = response.data.services
+}
+
+
+
+const openModal = () => {
+    showModal.value = !showModal.value
+}
+
+const closeModal = () =>{
+    showModal.value = !hideModal.value
+}
+
+
+const  createSkill  = async () =>{
+    await  axios.post('/api/create_skill', form.value)
+        .then(response =>{
+            getSkills()
+            closeModal()
+            toast.fire({
+                icon: 'success',
+                title: 'Skill added successfully'
+            })
+        })
+}
 </script>
 
 <style scoped>

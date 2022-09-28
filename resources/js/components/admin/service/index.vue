@@ -87,7 +87,7 @@
                         <h3 class="modal__title" v-show="editMode == true ">Update Service</h3>
                         <hr class="modal_line"><br>
 
-                        <form  @submit.prevent="editMode.value ? ServiceCreate() : ServiceUpdate() ">
+                        <form  @submit.prevent="!editMode ? ServiceUpdate() : ServiceCreate() ">
                             <div>
                                 <p>Service Name</p>
                                 <input type="text" class="input" v-model="form.name" />
