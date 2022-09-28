@@ -14,4 +14,12 @@ class Service extends Model
         "icon",
         "description",
     ];
+
+//    public  function  skills()
+//    {
+//        return $this->hasMany(
+//            related: Skill::class,
+//            foreignKey: 'skill_id'
+//        );
+//    }
 }
