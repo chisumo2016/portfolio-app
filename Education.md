@@ -37,7 +37,7 @@
         -Import the onMounted and ref inorder to display data
             import { onMounted, ref} from "vue";
         -create the onMoounted life cycle hoook
-                onMounted(async () =>{
+                onMounted(async () => {
                         getEducations()
                     
                     })
@@ -47,7 +47,37 @@
             Route::get('display_all_education','index');
         -To display all educations in UI we use v-for=
              v-for="education in educations" :key="education.id" v-if="educations.length > 0">
-        -
+        - Attach on the P tag  <p>{{ education.institution }}</p>
+
+
+       ================== CREATE A RECORD  ===================
+        - Declare the property showModal and hideModal
+            let  ShowModal = ref(false)
+            let  hideModal = ref(true)
+        - Declare the method to openModal
+        - Take the openModal and attach to the  click even on New Education
+                 <div class="btn " @click="openModal()">
+                      New Education
+                 </div>
+        -Will not work untill you add the showModal in Edacation Modal and bind the class
+                :class="{ show: showModal}" 
+        -Once the modal is open , we need to put the mechanismm to close/ hide it 
+                const closeModal  = () => {
+                showModal .value  = !hideModal.value
+            }
+        -Apply the closeModal in the UI
+             @click="closeModal()">×</span>
+
+        -Declare the form properties in ordeer to ccreate the record
+        - Bind the v-model on the input of the form
+                v-model="form.department"
+        -Add the div inside the form tag inorder to submit the data
+        - Add the method createEducation() inside the form tag
+            <form action="" @submit.prevent="createEducation()"></form>
+        - Create a method inside of script to createEducation
+        - Add the url on the api route file to create eduction
+        -Write a create method inside the EducationController and its logic
+        - After writing the logic ,you can test on UI to check if  u can create a record
         -
         -
         -

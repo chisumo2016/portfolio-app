@@ -53,6 +53,7 @@ Route::controller(SkillController::class)->group(function (){
 
 Route::controller(EducationController::class)->group(function (){
     Route::get('display_all_education','index');
+    Route::post('create_education','create');
 
 });
 
