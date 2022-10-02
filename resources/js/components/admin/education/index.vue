@@ -65,10 +65,10 @@
                             <p>{{ education.department }}</p>
 
                             <div>
-                                <button class="btn-icon success">
+                                <button class="btn-icon success" @click="editModal(education)" >
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <button class="btn-icon danger" >
+                                <button class="btn-icon danger"  @click="deleteEducation(education.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -77,13 +77,14 @@
                     </div>
 
                 </div>
-                <!-------------- SERVICES MODAL --------------->
+                <!-------------- EDUCATION MODAL --------------->
                 <div class="modal main__modal "  :class="{ show: showModal}" >
                     <div class="modal__content">
                         <span class="modal__close " @click="closeModal()">×</span>
-                        <h3 class="modal__title">Add Education</h3>
+                        <h3 class="modal__title" v-show="editMode == false">Add Education</h3>
+                        <h3 class="modal__title" v-show="editMode == true">Update Education</h3>
                         <hr class="modal_line"><br>
-                        <form action="" @submit.prevent="createEducation()">
+                        <form action="" @submit.prevent="editMode  ? updateEducation() : createEducation()">
                             <div>
                                 <p>Institution</p>
                                 <input type="text" class="input" v-model="form.institution"/>
@@ -103,7 +104,8 @@
                                 <button class="btn mr-2 btn__close--modal" @click="closeModal()">
                                     Cancel
                                 </button>
-                                <button class="btn btn-secondary btn__close--modal ">Save</button>
+                                <button class="btn btn-secondary" v-show="editMode == false">Save</button>
+                                <button class="btn btn-secondary" v-show="editMode == true">Update</button>
                             </div>
                         </form>
                     </div>
@@ -122,6 +124,8 @@ let educations  = ref([])
 
 let  showModal = ref(false)
 let  hideModal = ref(true)
+
+let editMode   = ref(false)
 
 let form = ref({
     institution: '',
@@ -147,6 +151,8 @@ const openModal  = () => {
 
 const closeModal  = () => {
     showModal .value  = !hideModal.value
+    form.value =({})
+    editMode.value  = false
 }
 
 const createEducation = async () =>{
@@ -160,6 +166,51 @@ const createEducation = async () =>{
 
         })
     })
+}
+
+const  editModal  = (education) => {
+    editMode.value  = true
+    showModal.value  = !showModal.value
+    form.value = education
+
+}
+
+const updateEducation = async () =>{
+    await axios.post('/api/update_education/'+form.value.id, form.value)
+        .then(() => {
+            getEducations()
+            closeModal()
+            toast.fire({
+                icon: 'success',
+                title: 'Education updated successfully'
+
+            })
+        })
+}
+
+const deleteEducation = (id) => {
+    Swal.fire({
+        title:"Are you sure ? ",
+        text: "You can't go back",
+        icon: "warning",
+        showCancelButton:true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Yes , delete it ! '
+    })
+        .then((result)=>{
+            if (result.value){
+                axios.get('/api/delete_education/'+id)
+                    .then(() => {
+                        Swal.fire(
+                            'Delete',
+                            'Education deleted successfully',
+                            'success'
+                        )
+                        getEducations()
+                    })
+            }
+        })
 }
 
 </script>

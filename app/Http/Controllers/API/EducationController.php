@@ -30,4 +30,26 @@ class EducationController extends Controller
         $education->department  = $request->department;
         $education->save();
     }
+
+    public  function  update(Request $request, $id)
+    {
+         $education = Education::findOrFail($id);
+
+        $this->validate($request, [
+            'institution' => 'required'
+        ]);
+
+        $education->institution = $request->institution;
+        $education->period      = $request->period;
+        $education->degree      = $request->degree;
+        $education->department  = $request->department;
+        $education->save();
+    }
+
+    public  function  delete($id)
+    {
+         $education = Education::findOrFail($id);
+         $education->delete();
+
+    }
 }
