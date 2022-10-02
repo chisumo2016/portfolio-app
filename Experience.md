@@ -49,17 +49,21 @@
             Route::get('display_all_education','index');
         -To display all educations in UI we use v-for=
              v-for="experience in experiences" :key="experience.id" v-if="experiences.length > 0">
-        - Attach on the P tag  <p>{{ education.institution }}</p>
+        - Attach on the P tag  <p>{{ experience.institution }}</p>
+       -Test the application
 
 
        ================== CREATE A RECORD  ===================
         - Declare the property showModal and hideModal
-            let  ShowModal = ref(false)
-            let  hideModal = ref(true)
+            const  ShowModal = ref(false)
+            cons  hideModal = ref(true)
         - Declare the method to openModal
+                const  openModal = () => {
+                ShowModal.value = !ShowModal.value
+            }
         - Take the openModal and attach to the  click even on New Education
                  <div class="btn " @click="openModal()">
-                      New Education
+                      New Experience
                  </div>
         -Will not work untill you add the showModal in Edacation Modal and bind the class
                 :class="{ show: showModal}" 
@@ -70,14 +74,19 @@
         -Apply the closeModal in the UI
              @click="closeModal()">×</span>
 
-        -Declare the form properties in ordeer to ccreate the record
+        -Declare the form properties in order to create the record\
+                    let form = ref({
+                    company : '',
+                    period : '',
+                    position : '',
+                })
         - Bind the v-model on the input of the form
-                v-model="form.department"
+                v-model="form.experince"
         -Add the div inside the form tag inorder to submit the data
         - Add the method createEducation() inside the form tag
             <form action="" @submit.prevent="createEducation()"></form>
-        - Create a method inside of script to createEducation
-        - Add the url on the api route file to create eduction
+        - Create a method inside of script to createExperience
+        - Add the url on the api route file to create eduction  api/create_experience
         -Write a create method inside the EducationController and its logic
         - After writing the logic ,you can test on UI to check if  u can create a record
         - Test Pass

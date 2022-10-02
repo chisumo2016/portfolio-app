@@ -14,7 +14,7 @@
                             <h1>Experiences </h1>
                         </div>
                         <div class="titlebar_item">
-                            <div class="btn btn__open--modal">
+                            <div class="btn btn__open--modal" @click="openModal()">
                                 New Experience
                             </div>
                         </div>
@@ -74,29 +74,31 @@
 
                 </div>
                 <!-------------- EXPERIENCE MODAL --------------->
-                <div class="modal main__modal " >
+                <div class="modal main__modal " :class="{ show: showModal}">
                     <div class="modal__content">
-                        <span class="modal__close btn__close--modal" >×</span>
+                        <span class="modal__close btn__close--modal" @click="closeModal()" >×</span>
                         <h3 class="modal__title">Add Experience</h3>
                         <hr class="modal_line"><br>
-                        <div>
-                            <p>Company</p>
-                            <input type="text" class="input" />
+                        <form @submit.prevent="createExperience()">
+                            <div>
+                                <p>Company</p>
+                                <input type="text" class="input" v-model="form.company" />
 
-                            <p>Period</p>
-                            <input type="text" class="input" />
+                                <p>Period</p>
+                                <input type="text" class="input" v-model="form.period"/>
 
-                            <p>Position</p>
-                            <input type="text" class="input" />
+                                <p>Position</p>
+                                <input type="text" class="input" v-model="form.position"/>
 
-                        </div>
-                        <br><hr class="modal_line">
-                        <div class="model__footer">
-                            <button class="btn mr-2 btn__close--modal">
-                                Cancel
-                            </button>
-                            <button class="btn btn-secondary btn__close--modal ">Save</button>
-                        </div>
+                            </div>
+                            <br><hr class="modal_line">
+                            <div class="model__footer">
+                                <button class="btn mr-2 " @click="closeModal()">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-secondary btn__close--modal ">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -112,15 +114,45 @@ import axios from "axios";
 
 let experiences = ref([])
 
+const  showModal = ref(false)
+const  hideModal = ref(true)
+let form = ref({
+    company : '',
+    period : '',
+    position : '',
+})
+
 onMounted(async () => {
     getExperiences()
 
 })
 
+const  openModal = () => {
+    showModal.value = !showModal.value
+}
+
+const closeModal = () => {
+    showModal.value = !hideModal.value
+}
+
 const  getExperiences = async () => {
     let response = await  axios.get('/api/display_all_experience')
     experiences.value  = response.data.experiences
     //console.log('response' ,response)
+}
+
+
+const createExperience = async () =>{
+    await axios.post('/api/create_experience',form.value)
+        .then(response =>{
+            getExperiences()
+            closeModal()
+            toast.fire({
+                icon: 'success',
+                title: 'Experience added successfully'
+
+            })
+        })
 }
 
 </script>
