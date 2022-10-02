@@ -62,8 +62,8 @@ Route::controller(EducationController::class)->group(function (){
 Route::controller(ExperienceController::class)->group(function (){
     Route::get('display_all_experience','index');
     Route::post('create_experience','create');
-
-
+    Route::post('update_experience/{id}','update');
+    Route::get('delete_experience/{id}','delete');
 });
 
 

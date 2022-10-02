@@ -24,10 +24,26 @@ class ExperienceController extends Controller
         ]);
 
         $experience = new Experience();
-        $experience->company = $request->company;
-        $experience->period = $request->period;
-        $experience->position = $request->position;
+        $experience->company    = $request->company;
+        $experience->period     = $request->period;
+        $experience->position   = $request->position;
         $experience->save();
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        $experience = Experience::findOrFail($id);
+
+        $experience->company    = $request->company;
+        $experience->period     = $request->period;
+        $experience->position   = $request->position;
+        $experience->save();
+    }
+
+    public  function  delete($id)
+    {
+        $experience = Experience::findOrFail($id);
+        $experience->delete();
     }
 }

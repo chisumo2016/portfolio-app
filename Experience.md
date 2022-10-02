@@ -95,12 +95,12 @@
 
        - Declare the properties editMode 
             let editMode   = ref(false)
-       - Write thee function editModal  and its logic
-       - After finishing  add the method editModal() in button of edit
-                 @click="editModal(education)"
+       - Write thee function editModal/editExperience()  and its logic
+       - After finishing  add the method editModal()/editExperience() in button of edit ui
+                 @click="editModal/editExperience(experience)"
        - add the editMode  in the education modal seection and bind it 
-            <h3 class="modal__title" v-show="editMode == false">Add Education</h3>
-            <h3 class="modal__title" v-show="editMode == true">Update Education</h3>
+            <h3 class="modal__title" v-show="editMode == false">Add Experice</h3>
+            <h3 class="modal__title" v-show="editMode == true">Update Experience</h3>
             
        - Add the v-show on the button to show the update  
             <button class="btn btn-secondary" v-show="editMode == false">Save</button>
@@ -109,15 +109,15 @@
             form.value =({})
             editMode.value  = false
        -Add the method to update the education in the form tag
-              <form action="" @submit.prevent="editMode  ? updateEducation() : createEducation()">
-       - Create the updateMethod() inside the script  and write the logic to update the education module
-       - Add the Url in api file Route::post('update_education','update');
+              <form action="" @submit.prevent="editMode  ? updateExperience() : createExperience()">
+       - Create the updateMethod()inside the script  and write the logic to update the experience module
+       - Add the Url in api file Route::post('update_experiennce/{id}','update');
        - Write the logic to update the record in the EducationController
        -test the function OK
        
        - To delete the education, add the click event on   @click="deleteEducation(education.id)" on button
-       - Write the logic to deleteEducatin in the script
-       - Add the api route delete_education/{id}
+       - Write the logic to deleteExperience in the script
+       - Add the api route delete_experience/{id}
        - 
        -
 

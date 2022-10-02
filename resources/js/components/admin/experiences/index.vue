@@ -61,10 +61,10 @@
                             <p> {{experience.period}}</p>
                             <p> {{experience.position}}</p>
                             <div>
-                                <button class="btn-icon success">
+                                <button class="btn-icon success"  @click="editExperience(experience)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <button class="btn-icon danger" >
+                                <button class="btn-icon danger" @click="deleteExperience(experience.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -77,9 +77,10 @@
                 <div class="modal main__modal " :class="{ show: showModal}">
                     <div class="modal__content">
                         <span class="modal__close btn__close--modal" @click="closeModal()" >×</span>
-                        <h3 class="modal__title">Add Experience</h3>
+                        <h3 class="modal__title" v-show="editMode == false">Add Experience</h3>
+                        <h3 class="modal__title" v-show="editMode == true">update Experience</h3>
                         <hr class="modal_line"><br>
-                        <form @submit.prevent="createExperience()">
+                        <form @submit.prevent="editMode ? updateExperience() : createExperience()">
                             <div>
                                 <p>Company</p>
                                 <input type="text" class="input" v-model="form.company" />
@@ -114,6 +115,7 @@ import axios from "axios";
 
 let experiences = ref([])
 
+
 const  showModal = ref(false)
 const  hideModal = ref(true)
 let form = ref({
@@ -121,6 +123,8 @@ let form = ref({
     period : '',
     position : '',
 })
+
+let editMode   = ref(false)
 
 onMounted(async () => {
     getExperiences()
@@ -142,6 +146,7 @@ const  getExperiences = async () => {
 }
 
 
+
 const createExperience = async () =>{
     await axios.post('/api/create_experience',form.value)
         .then(response =>{
@@ -154,6 +159,53 @@ const createExperience = async () =>{
             })
         })
 }
+
+const  editExperience  = (experience) => {
+    editMode.value = true
+    showModal.value  = !showModal.value
+
+    form.value = experience
+
+}
+
+const  updateExperience = async  () =>{
+    await axios.post('/api/update_experience/'+form.value.id, form.value)
+        .then(() => {
+            getExperiences()
+            closeModal()
+            toast.fire({
+                icon: 'success',
+                title: 'Experience updated successfully'
+            })
+        })
+}
+
+
+const deleteExperience =  (id) => {
+    Swal.fire({
+        title:"Are you sure ? ",
+        text: "You can't go back",
+        icon: "warning",
+        showCancelButton:true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Yes , delete it ! '
+    })
+        .then((result)=>{
+            if (result.value){
+                axios.get('/api/delete_experience/'+id)
+                    .then(() => {
+                        Swal.fire(
+                            'Delete',
+                            'Experience deleted successfully',
+                            'success'
+                        )
+                        getExperiences()
+                    })
+            }
+        })
+}
+
 
 </script>
 
