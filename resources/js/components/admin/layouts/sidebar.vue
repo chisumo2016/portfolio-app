@@ -57,14 +57,14 @@
                     </router-link>
                 </li>
                 <li class="nav_item">
-                    <a class="nav_link " href="#">
+                    <router-link class="nav_link " to="/admin/experiences">
                             <span class="nav_link--span--icon">
                                 <i class="fas fa-home nav__link--icon"> </i>
                             </span>
                         <span class="nav_link--span--navname">
                                 Experience
                             </span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="nav_item">
                     <a class="nav_link " href="#">

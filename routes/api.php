@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EducationController;
+use App\Http\Controllers\API\ExperienceController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\SkillController;
 use Illuminate\Http\Request;
@@ -58,4 +59,10 @@ Route::controller(EducationController::class)->group(function (){
     Route::get('delete_education/{id}','delete');
 
 });
+Route::controller(ExperienceController::class)->group(function (){
+    Route::get('display_all_experience','index');
+
+
+});
+
 

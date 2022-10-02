@@ -6,6 +6,7 @@ import adminAboutIndex from  '../components/admin/about/index.vue';
 import adminServiceIndex from  '../components/admin/service/index.vue';
 import adminSkillIndex from  '../components/admin/skill/index.vue';
 import adminEducationIndex from  '../components/admin/education/index.vue';
+import adminExperienceIndex from  '../components/admin/experiences/index.vue';
 
 /** Import Pages*/
 import homePageIndex  from  '../components/pages/home/index.vue';
@@ -55,6 +56,15 @@ const  routes = [
         path: '/admin/educations',
         name: 'adminEducation',
         component: adminEducationIndex,
+        meta:{
+            requiresAuth :true
+        }
+    },
+
+    {
+        path: '/admin/experiences',
+        name: 'adminExperience',
+        component: adminExperienceIndex,
         meta:{
             requiresAuth :true
         }
